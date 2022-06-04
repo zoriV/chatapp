@@ -7,7 +7,11 @@
 > - creating chats
 > - profile pictures
 
+---
+
 ## used solutions
+
+---
 
 > - MySQL
 > - NodeJS
