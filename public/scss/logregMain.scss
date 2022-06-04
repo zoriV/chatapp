@@ -1,0 +1,197 @@
+@use "master" as m;
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300&family=Fira+Sans:ital,wght@1,300&family=Plus+Jakarta+Sans:wght@500&family=Source+Serif+Pro:ital,wght@1,300&display=swap");
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background: m.$theme-documentBg;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  form {
+    background: m.$theme-formBg;
+    border-radius: 15px;
+    width: 485px;
+    height: auto;
+    overflow: hidden;
+    box-shadow: m.$theme-boxShadow;
+    * {
+      outline: none;
+    }
+    #submit {
+      cursor: pointer;
+      display: block;
+      position: relative;
+      margin-left: auto;
+      background: m.$theme-primaryGradient;
+      border: 0;
+      appearance: none;
+      width: 150px;
+      height: 40px;
+      color: m.$theme-textColor;
+      border-radius: 8px;
+      font-size: 17px;
+    }
+    .showhide-pass {
+      display: inline;
+      font-size: 20px;
+      position: absolute;
+      right: 0;
+      margin-right: 5px;
+      box-sizing: border-box;
+      cursor: pointer;
+      background: m.$theme-primaryGradient;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .content {
+      width: 350px;
+      text-align: center;
+      position: relative;
+      transform: translateX(-50%);
+      left: 50%;
+    }
+    //LINES
+    .line:not(.rules-line) {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 100%;
+      height: 35px;
+      position: relative;
+    }
+    .rules-line {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      margin-bottom: 10px;
+      display: block;
+      height: 15px;
+      width: 100%;
+      text-align: left;
+      position: relative;
+    }
+    .description {
+      font-size: 17px;
+      color: m.$theme-hintTextColor;
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      transition: 200ms linear;
+      cursor: text;
+      transform-origin: 0 0;
+    }
+    .inputBox {
+      flex: 1;
+      position: relative;
+      width: 100%;
+    }
+    .icon {
+      margin-right: 8px;
+      font-size: 22px;
+      color: transparent;
+      background: m.$theme-primaryGradient;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    //INPUTS
+    input[type="password"],
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      height: 30px;
+      border: 0;
+      border-bottom: 3px solid m.$theme-primary;
+      font-size: 15px;
+      box-sizing: border-box;
+      &:focus + label.description,
+      &:not(:placeholder-shown) + label.description {
+        transform: scale(0.72) translateY(-100%);
+      }
+      &:focus {
+        border-bottom-color: m.$theme-primary1;
+      }
+    }
+  }
+  .password {
+    padding-right: 29px; //to make value not collide with showhide
+  }
+  #messageContaier {
+    display: none;
+    justify-content: center;
+    margin-bottom: 7px;
+    #messageBox {
+      border: 1px solid darken(m.$theme-state-error, 15);
+      margin: 10px 0px;
+      margin-top: -10px;
+      padding: 15px 10px 15px 50px;
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      background-size: 35px;
+      border-radius: 13px;
+      width: 250px;
+      text-align: left;
+      color: m.$theme-state-error;
+      background-color: lighten(m.$theme-state-error, 29);
+      background-image: url("/img/errorIcon.png");
+      display: block;
+      position: relative;
+      box-sizing: content-box;
+      .title {
+        font-size: 18px;
+        font-weight: 900;
+        color: darken(m.$theme-state-error, 1);
+      }
+    }
+  }
+  //HEADER
+  .formHeader {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+    position: relative;
+    background: m.$theme-primaryGradient;
+    h1 {
+      color: m.$theme-headerTextColor;
+      text-align: center;
+      font-family: "Fira Sans", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0;
+      transition: 0.2s ease-in-out;
+      vertical-align: middle;
+      line-height: 50px;
+      font-size: 30px;
+      cursor: default;
+      &:hover {
+        letter-spacing: 0.2em;
+      }
+    }
+  }
+  //FOOTER
+  .formFooter {
+    display: block;
+    position: relative;
+    bottom: 0;
+    margin: 25px 0 10px 7px;
+    font-family: "Arima Madurai", cursive;
+    font-size: 18px;
+    color: black;
+    a {
+      color: m.$theme-primary;
+      &:visited,
+      &:link {
+        color: m.$theme-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+}

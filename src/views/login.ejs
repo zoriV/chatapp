@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chatapp</title>
+    <link rel="stylesheet" type="text/css" href="/style/logregMain.css" />
+    <link rel="shortcut icon" href="/img/docIcon.png" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/58fefbd958.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <form id="loginForm" autocomplete="off" method="POST">
+        <div class="formHeader">
+          <h1>logowanie</h1>
+        </div>
+        <div class="content">
+          <div id="messageContaier">
+            <div id="messageBox">
+              <span class="title">Błąd: </span><span id="message"></span>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fa-solid fa-user icon"></i>
+            <div class="inputBox">
+              <input
+                placeholder=" "
+                name="login"
+                type="text"
+                id="username"
+                autocomplete="off"
+              />
+              <label for="username" class="description">login</label>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fa-solid fa-key icon"></i>
+            <div class="inputBox">
+              <input
+                placeholder=" "
+                name="passwd"
+                type="password"
+                ishidden="true"
+                id="password"
+                class="password"
+              />
+              <label for="password" class="description">hasło</label>
+              <i
+                id="showhide"
+                class="fa-solid fa-eye showhide-pass showhide-pass"
+              ></i>
+            </div>
+          </div>
+          <input type="submit" id="submit" value="Zaloguj" />
+        </div>
+        <p class="formFooter">
+          Nie masz jeszcze konta?
+          <a href="/register">Załóż je!</a>
+        </p>
+      </form>
+    </div>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

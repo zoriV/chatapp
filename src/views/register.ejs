@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chatapp</title>
+    <link rel="stylesheet" type="text/css" href="/style/logregMain.css" />
+    <link rel="shortcut icon" href="/img/docIcon.png" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/58fefbd958.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <form id="registerForm" autocomplete="off" method="POST">
+        <div class="formHeader">
+          <h1>rejestracja</h1>
+        </div>
+        <div class="messageContaier">
+          <div id="messageBox"></div>
+        </div>
+        <div class="content">
+          <div class="line">
+            <i class="fa-solid fa-user icon"></i>
+            <div class="inputBox">
+              <input
+                spellcheck="false"
+                placeholder=" "
+                maxlength="20"
+                name="login"
+                type="text"
+                id="username"
+              />
+              <label for="username" class="description">login</label>
+            </div>
+          </div>
+          <div class="hint" id="hint-username">
+            <div id="content-username"></div>
+          </div>
+          <div class="line">
+            <i class="fa-solid fa-envelope icon"></i>
+            <div class="inputBox">
+              <input
+                spellcheck="false"
+                placeholder=" "
+                name="mail"
+                type="email"
+                id="mail"
+              />
+              <label for="mail" class="description">email</label>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fa-solid fa-key icon"></i>
+            <div class="inputBox">
+              <input
+                spellcheck="false"
+                class="password"
+                placeholder=" "
+                name="passwd"
+                type="password"
+                id="password"
+                isHidden="true"
+              />
+              <label for="password" class="description">hasło</label>
+              <i id="showHide" class="fa-solid fa-eye showhide-pass"></i>
+            </div>
+          </div>
+          <div class="hint" id="hint-password">
+            <div id="content-password"></div>
+          </div>
+          <div class="line">
+            <i class="fa-solid fa-key icon"></i>
+            <div class="inputBox">
+              <input
+                spellcheck="false"
+                class="password"
+                placeholder=" "
+                name="passwdCheck"
+                type="password"
+                id="passwordCheck"
+                isHidden="true"
+              />
+              <label for="passwordCheck" class="description"
+                >powtórz hasło</label
+              ><i id="showHide" class="fa-solid fa-eye showhide-pass"></i>
+            </div>
+          </div>
+          <div class="hint" id="hint-passwordCheck">
+            <div id="content-passwordCheck"></div>
+          </div>
+          <div class="line left-line">
+            <input spellcheck="false" type="checkbox" id="rulesAcceptance" />
+            <label for="rulesAcceptance"
+              >Czy akceptujesz <a href="/ToS">zasady</a> serwisu?</label
+            >
+          </div>
+          <input type="submit" id="submit" value="Stwórz konto" />
+        </div>
+        <p class="formFooter">
+          Masz już konto? <a href="/login">Zaloguj się!</a>
+        </p>
+      </form>
+    </div>
+    <!-- inporting scripts -->
+    <script src="/js/register.js"></script>
+  </body>
+</html>
