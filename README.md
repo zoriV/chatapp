@@ -1,4 +1,4 @@
-(/public/img/docIcon.png "docIcon")
+![!](/public/img/docIcon.png "docIcon")
 
 # CHAT APPLICATION PROJECT
 
