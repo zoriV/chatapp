@@ -52,19 +52,24 @@ function getUserByID(id, callback) {
  * @returns boolean
  */
 function createUser(username, password, salt, mail, callback) {
-  console.log(checkUserExist(username));
   if (checkUserExist(username)) return callback(null);
   const SQL =
     "INSERT INTO chat_users(username,password,password_salt,mail) VALUES (?,?,?,?)";
   conn.query(SQL, [username, password, salt, mail], (err, res, fields) => {
     if (err) throw err;
-    return callback(res.affectedRows) === 1 ? true : false;
+    return callback(res.affectedRows === 1 ? true : false);
   });
 }
 
+console.log(checkUserExist("pablo"));
+
 function checkUserExist(username) {
-  getUserByUsername(username, (user) => {
-    return user == null ? false : true;
+  let SQL =
+    "SELECT COUNT(*) AS 'useramount' FROM chat_users WHERE username = ?";
+  conn.query(SQL, [username], async (err, res, fields) => {
+    if (err) throw err;
+    let userAmount = await res[0].useramount;
+    return userAmount === 1 ? true : false;
   });
 }
 
