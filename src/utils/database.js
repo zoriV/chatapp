@@ -5,6 +5,7 @@ const conn = mysql.createConnection({
   password: process.env.DB_PASS,
   user: process.env.DB_USER,
   database: "db_67976",
+  multipleStatements: true,
 });
 
 conn.connect((err) => {
@@ -29,6 +30,13 @@ function getUserByID(id = "", callback) {
   return callback(null);
 }
 
+/**
+ * @param {String} username username
+ * @param {String} password hashed password
+ * @param {String} mail user e-mail
+ * @param {function(result)} callback callback for a funciton
+ * @returns boolean
+ */
 function createUser(username = "", password = "", mail, callback) {
   console.log(checkUserExist(username));
   if (checkUserExist(username)) return callback(null);
@@ -37,17 +45,16 @@ function createUser(username = "", password = "", mail, callback) {
     if (err) throw err;
     return callback(res.affectedRows);
   });
-  // return callback(null);
 }
 function checkUserExist(username) {
   getUserByUsername(username, (user) => {
     return user == null ? false : true;
   });
-  return true;
 }
 
-createUser("nbdmsadnm,asdnm,", "daskjhdasdkj", "dsajkdlasjdlkasd", (data) =>
-  console.dir(data)
-);
-
-module.exports = { getUserByUsername };
+module.exports = {
+  getUserByID,
+  getUserByUsername,
+  createUser,
+  checkUserExist,
+};

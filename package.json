@@ -1,14 +1,14 @@
 {
-  "name": "nodeapp",
+  "name": "chatapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "chat application with chat rooms",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx nodemon ./src/server.js --watch *",
     "sass": "npx sass --watch public/scss:public/css"
   },
-  "author": "",
+  "author": "Viroz",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

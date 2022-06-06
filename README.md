@@ -1,5 +1,3 @@
-![!](/public/img/docIcon.png "docIcon")
-
 # CHAT APPLICATION PROJECT
 
 ## chat functions:
