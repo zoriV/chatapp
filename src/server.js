@@ -9,10 +9,6 @@ const express = require("express"),
   MySQLStore = require("express-mysql-session"),
   app = express(),
   port = process.env.SERVER_PORT || 8080;
-passportConfig.initializePassport(passport);
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(
   session({
     secret: process.env.SECRET,
@@ -36,6 +32,10 @@ app.use(
     cookie: { secure: true, maxAge: 1000 * 60 * 60 },
   })
 );
+app.use(flash());
+passportConfig.initializePassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));

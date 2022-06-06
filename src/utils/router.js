@@ -4,7 +4,8 @@ const bodyParser = require("body-parser"),
   dbManager = require("./database"),
   session = require("express-session"),
   bcrypt = require("bcrypt"),
-  passport = require("passport");
+  passport = require("passport"),
+  authController = require("../controllers/authController");
 let router = express.Router();
 
 router.use(bodyParser.json());
@@ -16,11 +17,9 @@ router
     res.render("login");
   })
   .post((req, res, next) => {
-    const { username, password } = req.body;
-    dbManager.getUserByUsername(username, (data) => {
-      var toReturn = {};
-      toReturn.userExist = data == null ? false : true;
-      res.json(toReturn);
+    passport.authenticate("local", {
+      failureRedirect: "/register",
+      successRedirect: "/",
     });
   });
 
@@ -29,13 +28,35 @@ router
   .get((req, res, next) => {
     res.render("register");
   })
-  .post(async (req, res, next) => {
-    try {
-      const hashedPass = await bcrypt.hash(req.body.password, 10);
-      dbManager;
-    } catch (error) {
-      res.redirect("/register");
-    }
+  .post((req, res, next) => {
+    const { password, salt } = authController.genPassword(req.body.password);
+    dbManager.createUser(
+      req.body.username,
+      password,
+      salt,
+      req.body.mail,
+      (result) => {
+        if (result) res.redirect("/login");
+        else res.redirect("/register");
+      }
+    );
   });
+
+router.route("/").get((req, res, next) => {
+  authController.isAuth(req, res, () => {
+    res.redirect("/");
+    return;
+  });
+  res.redirect("/notAthorized");
+});
+
+router.route("/notAthorized").get((req, res, next) => {
+  res.render("notAuthorized");
+});
+
+router.route("/logout").get((req, res, next) => {
+  req.logout();
+  res.redirect("/login");
+});
 
 module.exports = router;

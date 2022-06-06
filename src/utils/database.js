@@ -29,7 +29,7 @@ function getUserByUsername(username, callback) {
 }
 /**
  *
- * @param {int} id user ID
+ * @param {number} id user ID
  * @param {function(result)} callback
  * @returns callback
  */
@@ -44,19 +44,21 @@ function getUserByID(id, callback) {
 
 /**
  * pushes user into database
- * @param {String} username username
- * @param {String} password hashed password
- * @param {String} mail user e-mail
+ * @param {string} username username
+ * @param {string} password hashed password
+ * @param {string} mail user e-mail
+ * @param {string} salt salt for generated password
  * @param {function(result)} callback callback for a funciton
  * @returns boolean
  */
-function createUser(username, password, mail, callback) {
+function createUser(username, password, salt, mail, callback) {
   console.log(checkUserExist(username));
   if (checkUserExist(username)) return callback(null);
-  const SQL = "INSERT INTO chat_users(username,password,mail) VALUES (?,?,?)";
-  conn.query(SQL, [username, password, mail], (err, res, fields) => {
+  const SQL =
+    "INSERT INTO chat_users(username,password,password_salt,mail) VALUES (?,?,?,?)";
+  conn.query(SQL, [username, password, salt, mail], (err, res, fields) => {
     if (err) throw err;
-    return callback(res.affectedRows);
+    return callback(res.affectedRows) === 1 ? true : false;
   });
 }
 
