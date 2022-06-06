@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "./.env" });
 const express = require("express"),
   bodyParser = require("body-parser"),
   router = require("./utils/router"),
@@ -5,8 +6,9 @@ const express = require("express"),
   passport = require("passport"),
   passportConfig = require("./utils/passport-config"),
   flash = require("express-flash"),
+  MySQLStore = require("express-mysql-session"),
   app = express(),
-  port = 8080;
+  port = process.env.SERVER_PORT || 8080;
 passportConfig.initializePassport(passport);
 app.use(flash());
 
@@ -15,7 +17,22 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true, maxAge: 60000 },
+    store: new MySQLStore({
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: "db_67976",
+      schema: {
+        tableName: "chat_sessions",
+        columnNames: {
+          session_id: "SESSION_ID",
+          expires: "EXPIRES",
+          data: "DATA",
+        },
+      },
+    }),
+    cookie: { secure: true, maxAge: 1000 * 60 * 60 },
   })
 );
 app.use(bodyParser.json());

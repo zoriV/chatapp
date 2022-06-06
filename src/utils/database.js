@@ -31,6 +31,7 @@ function getUserByID(id = "", callback) {
 }
 
 /**
+ * pushes user into database
  * @param {String} username username
  * @param {String} password hashed password
  * @param {String} mail user e-mail
@@ -46,6 +47,7 @@ function createUser(username = "", password = "", mail, callback) {
     return callback(res.affectedRows);
   });
 }
+
 function checkUserExist(username) {
   getUserByUsername(username, (user) => {
     return user == null ? false : true;
