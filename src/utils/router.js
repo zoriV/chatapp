@@ -11,6 +11,10 @@ let router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
+router.route("/authError").get((req, res, next) => {
+  res.render("notAuthorized");
+});
+
 router
   .route("/login")
   .get((req, res, next) => {
@@ -45,13 +49,7 @@ router
 router.route("/").get((req, res, next) => {
   authController.isAuth(req, res, () => {
     res.redirect("/");
-    return;
   });
-  res.redirect("/notAthorized");
-});
-
-router.route("/notAthorized").get((req, res, next) => {
-  res.render("notAuthorized");
 });
 
 router.route("/logout").get((req, res, next) => {

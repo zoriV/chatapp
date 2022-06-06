@@ -37,6 +37,6 @@ function genPassword(password) {
  */
 function isAuth(req, res, next) {
   if (req.isAuthenticated()) return next();
-  res.redirect("/notAuthorized");
+  res.redirect("/authError");
 }
 module.exports = { matchPasswords, genPassword, isAuth };

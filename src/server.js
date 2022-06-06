@@ -44,7 +44,7 @@ app.use("/js", express.static("./public/js"));
 app.use("/img", express.static("./public/img"));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
-app.use("/", router);
+app.use(router);
 
 app.listen(port, (err) => {
   if (err) throw err;
