@@ -11,7 +11,8 @@ const express = require("express"),
   port = process.env.SERVER_PORT || 8080;
 passportConfig.initializePassport(passport);
 app.use(flash());
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(
   session({
     secret: process.env.SECRET,

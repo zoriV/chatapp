@@ -145,7 +145,7 @@ html {
   text-align: left;
   color: #c90909;
   background-color: #f86d6d;
-  background-image: url("/img/errorIcon.png");
+  background-image: url("img/errorIcon.png");
   display: block;
   position: relative;
   box-sizing: content-box;

@@ -13,7 +13,13 @@ conn.connect((err) => {
   console.log("[DB] Successfully connected");
 });
 
-function getUserByUsername(username = "", callback) {
+/**
+ *
+ * @param {string} username
+ * @param {function(result)} callback
+ * @returns callback
+ */
+function getUserByUsername(username, callback) {
   const SQL = "SELECT * FROM chat_users WHERE username = ?";
   conn.query(SQL, [username], (err, res) => {
     if (err) throw err;
@@ -21,7 +27,13 @@ function getUserByUsername(username = "", callback) {
   });
   return callback(null);
 }
-function getUserByID(id = "", callback) {
+/**
+ *
+ * @param {int} id user ID
+ * @param {function(result)} callback
+ * @returns callback
+ */
+function getUserByID(id, callback) {
   const SQL = "SELECT * FROM chat_users WHERE id = ?";
   conn.query(SQL, [id], (err, res) => {
     if (err) throw err;
@@ -38,7 +50,7 @@ function getUserByID(id = "", callback) {
  * @param {function(result)} callback callback for a funciton
  * @returns boolean
  */
-function createUser(username = "", password = "", mail, callback) {
+function createUser(username, password, mail, callback) {
   console.log(checkUserExist(username));
   if (checkUserExist(username)) return callback(null);
   const SQL = "INSERT INTO chat_users(username,password,mail) VALUES (?,?,?)";

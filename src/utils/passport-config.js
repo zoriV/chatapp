@@ -1,7 +1,8 @@
-const localStrategy = require("passport-local").Strategy;
-const dbManager = require("./database");
-const bcrypt = require("bcrypt");
-const passport = require("passport");
+const localStrategy = require("passport-local").Strategy,
+  dbManager = require("./database"),
+  bcrypt = require("bcrypt"),
+  passport = require("passport"),
+  crypto = require("crypto");
 
 const customFields = {
   usernameField: "username",
@@ -9,7 +10,13 @@ const customFields = {
 };
 
 function initializePassport(passport) {
-  const verify = (username, password, done) => {};
+  const verifyUser = (username, password, done) => {
+    const user = dbManager.getUserByUsername(username, (res) => {
+      if (res.lenght === 0) return done(null, false);
+      let valid = validPassword(password, res[0].PASSWORD);
+    });
+  };
+  passport.use(new localStrategy(customFields, verifyUser));
 }
 
 module.exports = { initializePassport };
