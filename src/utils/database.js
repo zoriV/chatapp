@@ -61,7 +61,7 @@ function createUser(username, password, salt, mail, callback) {
   });
 }
 
-console.log(checkUserExist("pablo"));
+// console.log(checkUserExist("pablo"));
 
 function checkUserExist(username) {
   let SQL =

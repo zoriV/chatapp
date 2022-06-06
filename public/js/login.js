@@ -53,30 +53,30 @@ function isDataCorrect(
   return true;
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let data = {
-    username: form.elements.username.value,
-    password: form.elements.password.value,
-  };
-  if (
-    !isDataCorrect(data.username, data.password, (message) => {
-      setError(message);
-    })
-  )
-    return;
-  fetch("/login/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (!data.userExist) {
-        setError(errorMessages.userNotExist);
-        return;
-      }
-      setError();
-    });
-});
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   let data = {
+//     username: form.elements.username.value,
+//     password: form.elements.password.value,
+//   };
+//   if (
+//     !isDataCorrect(data.username, data.password, (message) => {
+//       setError(message);
+//     })
+//   )
+//     return;
+//   fetch("/login/", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+//       if (!data.userExist) {
+//         setError(errorMessages.userNotExist);
+//         return;
+//       }
+//       setError();
+//     });
+// });

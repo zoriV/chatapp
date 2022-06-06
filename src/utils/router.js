@@ -21,10 +21,18 @@ router
     res.render("login");
   })
   .post((req, res, next) => {
-    passport.authenticate("local", {
-      failureRedirect: "/register",
-      successRedirect: "/",
-    });
+    console.log("test1");
+    passport.authenticate(
+      "local",
+      {
+        failureRedirect: "/register",
+        successRedirect: "/",
+      },
+      (reqest, resp) => {
+        console.log("test2");
+        resp.redirect("/");
+      }
+    );
   });
 
 router
