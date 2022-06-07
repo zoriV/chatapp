@@ -1,7 +1,7 @@
 "use strict";
 const bodyParser = require("body-parser"),
   express = require("express"),
-  dbManager = require("./database"),
+  dbManager = require("../utils/database"),
   session = require("express-session"),
   bcrypt = require("bcrypt"),
   passport = require("passport"),
@@ -20,20 +20,15 @@ router
   .get((req, res, next) => {
     res.render("login");
   })
-  .post((req, res, next) => {
-    console.log("test1");
-    passport.authenticate(
-      "local",
-      {
-        failureRedirect: "/register",
-        successRedirect: "/",
-      },
-      (reqest, resp) => {
-        console.log("test2");
-        resp.redirect("/");
-      }
-    );
-  });
+  .post(
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureMessage: true,
+    }),
+    function (req, res, next) {
+      res.redirect("/");
+    }
+  );
 
 router
   .route("/register")

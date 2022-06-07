@@ -1,7 +1,7 @@
 require("dotenv").config({ path: "./.env" });
 const express = require("express"),
   bodyParser = require("body-parser"),
-  router = require("./utils/router"),
+  router = require("./config/router"),
   session = require("express-session"),
   passport = require("passport"),
   passportConfig = require("./config/passport-config"),

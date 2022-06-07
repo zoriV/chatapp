@@ -38,6 +38,11 @@ html {
   color: #ffffff;
   border-radius: 8px;
   font-size: 17px;
+  transition: 0.225s ease-in;
+}
+.container form #submit:focus, .container form #submit:hover {
+  color: #ffffff;
+  box-shadow: 22px 22px 35px 9px white;
 }
 .container form .showhide-pass {
   display: inline;
@@ -123,6 +128,32 @@ html {
 .container form input[type=text]:focus,
 .container form input[type=email]:focus {
   border-bottom-color: #0499d4;
+}
+.container form .hint {
+  background: rgba(0, 0, 0, 0.062745098);
+  border: 2px solid;
+  border-image: linear-gradient(45deg, #0004ff, #237bff);
+  border-image-slice: 1;
+  display: none;
+  margin-bottom: 10px;
+  margin-top: -1px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding-left: 10px;
+}
+.container form .hint p {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.container form .hint p i {
+  margin-right: 7px;
+}
+.container form .hint p.met {
+  color: #009d05;
+}
+.container form .hint p.notMet {
+  color: #c90909;
 }
 .container .password {
   padding-right: 29px;
