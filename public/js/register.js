@@ -14,8 +14,8 @@ Array.from(registerForm.elements).forEach((el) => {
     el.type !== "checkbox" &&
     el.type !== "email"
   ) {
-    el.addEventListener("focus", function () {
-      let hint = this.dataset.hint;
+    el.addEventListener("focus", (e) => {
+      let hint = e.target.dataset.hint;
       showHint(hint);
     });
   }
@@ -24,38 +24,48 @@ Array.from(registerForm.elements).forEach((el) => {
 /**
  * genererates hint value
  * @param {Array} values array of values to put into hint
+ * @param {HTMLElement} hint hint element to put data
  * @returns null
  */
 function genHint(values, hint) {
   //values: { met,text } - {boolean,string}
   hint.innerHTML = null;
-  for (i = 0; i < values.length; i++) {
+  for (let elem of values) {
     let line = document.createElement("p");
-    line.appendChild(values[i].met ? hint_correctIcon : hint_incorrectIcon);
-    line.append(values[i].text);
-    line.classList.add(values[i].met ? hint_correctClass : hint_incorrectClass);
-    hint.appendChild(line);
 
-    line = undefined;
+    let icon = elem.met ? hint_correctIcon : hint_incorrectIcon;
+    let className = elem.met ? hint_correctClass : hint_incorrectClass;
+
+    line.classList.add(className);
+    line.appendChild(icon);
+    line.append(elem.text);
+
+    hint.appendChild(line);
   }
 }
 
+function updateHint(conditions) {
+  let val = [];
+  for (let condition of conditions) {
+    let met = condition.check ? true : false;
+    val.push({ met: met, text: condition.text });
+  }
+  return val;
+}
+
 function showHint(id) {
-  hintID = "#" + id;
-  hint = document.querySelector(hintID);
+  let hintID = "#" + id;
+  let hint = document.querySelector(hintID);
   if (hint === currentHint) return;
   if (currentHint != null) currentHint.style.display = "none";
   currentHint = hint;
   genHint(
-    [
-      { met: false, text: "cos1" },
-      { met: false, text: "cos2" },
-      { met: true, text: "cos3" },
-    ],
+    updateHint([
+      { check: 1 !== 1, text: "cos" },
+      { check: 1 !== 1, text: "cos1" },
+    ]),
     hint
   );
   hint.style.display = "block";
   console.log(hint);
 }
-
-function updateHint(params) {}
