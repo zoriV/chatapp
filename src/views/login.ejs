@@ -11,6 +11,7 @@
       src="https://kit.fontawesome.com/58fefbd958.js"
       crossorigin="anonymous"
     ></script>
+    <script src="/js/login.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -35,6 +36,7 @@
                 autocomplete="off"
               />
               <label for="username" class="description">login</label>
+              <label for="username" class="underline"></label>
             </div>
           </div>
           <div class="line">
@@ -49,10 +51,8 @@
                 class="password"
               />
               <label for="password" class="description">hasło</label>
-              <i
-                id="showhide"
-                class="fa-solid fa-eye showhide-pass showhide-pass"
-              ></i>
+              <label for="password" class="underline"></label>
+              <i id="showhide" class="fa-solid fa-eye showhide-pass"></i>
             </div>
           </div>
           <input type="submit" id="submit" value="Zaloguj" />
@@ -63,6 +63,5 @@
         </p>
       </form>
     </div>
-    <script src="/js/login.js"></script>
   </body>
 </html>

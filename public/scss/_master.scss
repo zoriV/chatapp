@@ -5,11 +5,15 @@ $theme-headerTextColor: #ffffff;
 $theme-hintTextColor: #3333339a;
 $theme-primaryGradient: linear-gradient(45deg, #0004ff, #237bff);
 $theme-textColor: #ffffff;
+$theme-textColor1: rgb(13, 13, 13) f;
 $theme-primary: #0000d7;
-$theme-primary1: #0499d4;
+$theme-primary1: #00b7ff;
 
 //states
 $theme-state-success: #009d05;
 $theme-state-info: #1264df;
 $theme-state-warning: #ffb107;
 $theme-state-error: #c90909;
+
+//times
+$time-inputAnimation: 300ms;

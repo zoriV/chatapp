@@ -11,6 +11,7 @@
       src="https://kit.fontawesome.com/58fefbd958.js"
       crossorigin="anonymous"
     ></script>
+    <script src="/js/register.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -33,8 +34,10 @@
                 type="text"
                 id="username"
                 data-hint="hint-username"
+                data-hinttype="user"
               />
               <label for="username" class="description">login</label>
+              <label for="username" class="underline"></label>
             </div>
           </div>
           <div class="hint" id="hint-username">
@@ -51,6 +54,7 @@
                 id="mail"
               />
               <label for="mail" class="description">email</label>
+              <label for="mail" class="underline"></label>
             </div>
           </div>
           <div class="line">
@@ -65,9 +69,11 @@
                 id="password"
                 isHidden="true"
                 data-hint="hint-password"
+                data-hinttype="pass"
               />
               <label for="password" class="description">hasło</label>
-              <i id="showHide" class="fa-solid fa-eye showhide-pass"></i>
+              <label for="password" class="underline"></label>
+              <i id="showHide-pass" class="fa-solid fa-eye showhide-pass"></i>
             </div>
           </div>
           <div class="hint" id="hint-password">
@@ -85,10 +91,16 @@
                 id="passwordCheck"
                 isHidden="true"
                 data-hint="hint-passwordCheck"
+                data-hinttype="passCheck"
               />
               <label for="passwordCheck" class="description"
                 >powtórz hasło</label
-              ><i id="showHide" class="fa-solid fa-eye showhide-pass"></i>
+              >
+              <label for="passwordCheck" class="underline"></label>
+              <i
+                id="showHide-passCheck"
+                class="fa-solid fa-eye showhide-pass"
+              ></i>
             </div>
           </div>
           <div class="hint" id="hint-passwordCheck">
@@ -107,7 +119,5 @@
         </p>
       </form>
     </div>
-    <!-- inporting scripts -->
-    <script src="/js/register.js"></script>
   </body>
 </html>

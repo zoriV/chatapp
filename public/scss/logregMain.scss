@@ -90,9 +90,19 @@ html {
       position: absolute;
       left: 0;
       bottom: 10px;
-      transition: 200ms linear;
+      transition: m.$time-inputAnimation ease-in-out;
       cursor: text;
       transform-origin: 0 0;
+      pointer-events: none;
+    }
+    .underline {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: m.$theme-primary1;
+      transition: m.$time-inputAnimation ease;
     }
     .inputBox {
       flex: 1;
@@ -121,23 +131,31 @@ html {
       &:focus + label.description,
       &:not(:placeholder-shown) + label.description {
         transform: scale(0.72) translateY(-100%);
+        font-weight: 800;
+        color: m.$theme-primary;
       }
-      &:focus {
-        border-bottom-color: m.$theme-primary1;
+      &:focus ~ .underline {
+        width: 100%;
       }
     }
     .hint {
       background: #00000010;
-      border: 2px solid;
+      border: 0;
+      border-left: 7px;
+      border-style: solid;
       border-image: m.$theme-primaryGradient;
       border-image-slice: 1;
+      border-radius: 0 15px 15px 0;
+      position: relative;
       display: none;
-      margin-bottom: 10px;
-      margin-top: -1px;
-      width: 100%;
+      margin-bottom: 15px;
+      margin-top: -7px;
+      width: 85%;
       box-sizing: border-box;
       text-align: left;
+      padding: 7px;
       padding-left: 10px;
+      margin-inline: auto;
     }
     .hint p {
       margin-top: 6px;

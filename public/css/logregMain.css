@@ -89,9 +89,19 @@ html {
   position: absolute;
   left: 0;
   bottom: 10px;
-  transition: 200ms linear;
+  transition: 300ms ease-in-out;
   cursor: text;
   transform-origin: 0 0;
+  pointer-events: none;
+}
+.container form .underline {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #00b7ff;
+  transition: 300ms ease;
 }
 .container form .inputBox {
   flex: 1;
@@ -123,24 +133,32 @@ html {
 .container form input[type=email]:focus + label.description,
 .container form input[type=email]:not(:placeholder-shown) + label.description {
   transform: scale(0.72) translateY(-100%);
+  font-weight: 800;
+  color: #0000d7;
 }
-.container form input[type=password]:focus,
-.container form input[type=text]:focus,
-.container form input[type=email]:focus {
-  border-bottom-color: #0499d4;
+.container form input[type=password]:focus ~ .underline,
+.container form input[type=text]:focus ~ .underline,
+.container form input[type=email]:focus ~ .underline {
+  width: 100%;
 }
 .container form .hint {
   background: rgba(0, 0, 0, 0.062745098);
-  border: 2px solid;
+  border: 0;
+  border-left: 7px;
+  border-style: solid;
   border-image: linear-gradient(45deg, #0004ff, #237bff);
   border-image-slice: 1;
+  border-radius: 0 15px 15px 0;
+  position: relative;
   display: none;
-  margin-bottom: 10px;
-  margin-top: -1px;
-  width: 100%;
+  margin-bottom: 15px;
+  margin-top: -7px;
+  width: 85%;
   box-sizing: border-box;
   text-align: left;
+  padding: 7px;
   padding-left: 10px;
+  margin-inline: auto;
 }
 .container form .hint p {
   margin-top: 6px;

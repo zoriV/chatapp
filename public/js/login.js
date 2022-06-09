@@ -4,10 +4,12 @@ const passwordInput = document.querySelector("#password"),
   messageContainer = document.querySelector("#messageContaier"),
   messageBox = document.querySelector("#messageBox");
 
-function switchPasswordVisibility(passElem) {
+function switchPasswordVisibility(passElem, icon) {
   passElem.type == "text"
     ? (passElem.type = "password")
     : (passElem.type = "text");
+  icon.classList.toggle("fa-eye");
+  icon.classList.toggle("fa-eye-slash");
 }
 
 function setError(message) {
@@ -19,8 +21,8 @@ function setError(message) {
   messageBox.querySelector("#message").innerText = message;
 }
 
-showhideButton.addEventListener("click", () => {
-  switchPasswordVisibility(passwordInput);
+showhideButton.addEventListener("click", (e) => {
+  switchPasswordVisibility(passwordInput, e.target);
 });
 
 const errorMessages = {
