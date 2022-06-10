@@ -5,7 +5,7 @@ const passwordInput = document.querySelector("#password"),
   messageBox = document.querySelector("#messageBox");
 
 function switchPasswordVisibility(passElem, icon) {
-  passElem.type == "text"
+  passElem.type === "text"
     ? (passElem.type = "password")
     : (passElem.type = "text");
   icon.classList.toggle("fa-eye");

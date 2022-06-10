@@ -90,7 +90,7 @@ html {
       position: absolute;
       left: 0;
       bottom: 10px;
-      transition: m.$time-inputAnimation ease-in-out;
+      transition: m.$time-inputAnimation linear;
       cursor: text;
       transform-origin: 0 0;
       pointer-events: none;
@@ -102,7 +102,7 @@ html {
       width: 0;
       height: 3px;
       background-color: m.$theme-primary1;
-      transition: m.$time-inputAnimation ease;
+      transition: width m.$time-inputAnimation ease-in-out;
     }
     .inputBox {
       flex: 1;
@@ -128,14 +128,22 @@ html {
       border-bottom: 3px solid m.$theme-primary;
       font-size: 15px;
       box-sizing: border-box;
+      //PLACEHOLDER
       &:focus + label.description,
       &:not(:placeholder-shown) + label.description {
         transform: scale(0.72) translateY(-100%);
         font-weight: 800;
         color: m.$theme-primary;
       }
+      //UNDERLINE
+      &.incorrectData {
+        border-bottom-color: m.$theme-state-error;
+      }
       &:focus ~ .underline {
         width: 100%;
+      }
+      &:focus.incorrectData ~ .underline {
+        background-color: lighten(m.$theme-state-error, 16);
       }
     }
     .hint {
@@ -156,6 +164,7 @@ html {
       padding: 7px;
       padding-left: 10px;
       margin-inline: auto;
+      animation: sildeInAnimation m.$time-hintShowTime ease-out;
     }
     .hint p {
       margin-top: 6px;
@@ -175,12 +184,13 @@ html {
     }
   }
   .password {
-    padding-right: 29px; //to make value not collide with showhide
+    padding-right: 29px;
   }
   #messageContaier {
-    display: none;
-    justify-content: center;
+    position: relative;
     margin-bottom: 7px;
+    justify-content: center;
+    width: 100%;
     #messageBox {
       border: 1px solid darken(m.$theme-state-error, 15);
       margin: 10px 0px;
@@ -198,6 +208,7 @@ html {
       display: block;
       position: relative;
       box-sizing: content-box;
+      animation: slideInAnimation m.$time-hintShowTime ease-out;
       .title {
         font-size: 18px;
         font-weight: 900;
@@ -246,5 +257,19 @@ html {
         text-decoration: underline;
       }
     }
+  }
+}
+
+@keyframes sildeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-200%);
+  }
+  70% {
+    transform: translateX(7em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

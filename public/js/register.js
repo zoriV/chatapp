@@ -2,32 +2,73 @@ const registerForm = document.querySelector("#registerForm"),
   hint_correctClass = "met",
   hint_incorrectClass = "notMet",
   hint_correctIcon = document.createElement("i"),
-  hint_incorrectIcon = document.createElement("i");
-var currentHint = null;
+  hint_incorrectIcon = document.createElement("i"),
+  form_rulesAcceptance = registerForm.querySelector("#rulesAcceptance"),
+  form_username = registerForm.querySelector("#username"),
+  form_mail = registerForm.querySelector("#mail"),
+  form_password = registerForm.querySelector("#password"),
+  form_passwordCheck = registerForm.querySelector("#passwordCheck"),
+  form_submit = registerForm.querySelector("#submit");
+let currentHint = null,
+  allDataCorrect = false;
 hint_incorrectIcon.classList.add("fa-solid", "fa-xmark");
 hint_correctIcon.classList.add("fa-solid", "fa-check");
 
+registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const {
+    correct,
+    usernameCorrect,
+    mailCorrect,
+    passwordCorrect,
+    passwordCheckCorrect,
+    rulesAcceptance,
+  } = checkAllData({
+    username: form_username.value,
+    password: form_password.value,
+    passwordCheck: form_passwordCheck.value,
+    email: form_mail.value,
+    rules: form_rulesAcceptance,
+  });
+  if (!correct) {
+    if (!usernameCorrect) {
+      showError("Niepoprawna nazwa użytkownika");
+      return;
+    }
+    if (!mailCorrect) {
+      showError("Niepoprawny adres e-mail");
+      return;
+    }
+    if (!passwordCorrect) {
+      showError("Niepoprawne hasło");
+      return;
+    }
+    if (!passwordCheckCorrect) {
+      showError("Podane hasła się nie zgadzają");
+      return;
+    }
+    return;
+  }
+});
+
+function showError(message) {
+  const container = registerForm.querySelector("#messageContaier"),
+    content = registerForm.querySelector("#messageBox__message");
+
+  container.style.display = "flex";
+  content.innerText = message;
+}
+
 Array.from(registerForm.elements).forEach((el) => {
-  if (
-    el.nodeName == "INPUT" &&
-    el.type !== "submit" &&
-    el.type !== "checkbox" &&
-    el.type !== "email"
-  ) {
-    // el.addEventListener("focus", (e) => {
-    //   let input = e.target;
-    //   let hint = input.dataset.hint;
-    //   let hintType = input.dataset.hinttype;
-    //   let value = input.value;
-    //   showHint(hint, getHintValues(hintType, value));
-    // });
-    el.addEventListener("input", (e) => {
-      let input = e.target;
-      let hint = input.dataset.hint;
-      let hintType = input.dataset.hinttype;
-      let value = input.value;
-      showHint(hint, getHintValues(hintType, value));
-    });
+  if (el.nodeName == "INPUT" && el.type !== "submit") {
+    if (el.type !== "email" && el.type !== "checkbox")
+      el.addEventListener("input", (e) => {
+        let input = e.target;
+        let hint = input.dataset.hint;
+        let hintType = input.dataset.hinttype;
+        let value = input.value;
+        showHint(hint, getHintValues(hintType, value));
+      });
   }
 });
 
@@ -40,7 +81,7 @@ function getHintValues(hintType, value) {
         text: "Tylko litery, cyfry oraz znaki: _ i -",
       },
       {
-        check: value.length > 3 && value.length <= 20,
+        check: value.length >= 3 && value.length <= 20,
         text: "Od 3 do 20 znaków",
       }
     );
@@ -102,7 +143,6 @@ function getHintValue(conditions) {
 function showHint(id, values) {
   let hintID = "#" + id;
   let hint = document.querySelector(hintID);
-  // if (hint === currentHint) return;
   if (currentHint != null) currentHint.style.display = "none";
   currentHint = hint;
   genHint(getHintValue(values), hint);
@@ -110,31 +150,51 @@ function showHint(id, values) {
 }
 
 function checkAllData(data) {
-  let errorMessage = new String();
-  const { username, email, password, passwordCheck } = data;
+  const { username, email, password, passwordCheck, rules } = data;
   let usernameCorrect =
       !username.match(/[^a-zA-Z0-9\-\_]/) &&
-      username.length > 3 &&
+      username.length >= 3 &&
       username.length <= 20,
     mailCorrect = true,
     passwordCorrect =
       password.match(/[A-B]/) &&
       password.match(/[1-9]/) &&
-      password.match(/[^a-zA-Z0-9\-\_ ]/),
-    passwordCheckCorrect = password === passwordCheck;
+      password.match(/[^a-zA-Z0-9\-\_ ]/) &&
+      password.length >= 9,
+    passwordCheckCorrect = password === passwordCheck,
+    rulesAcceptance = rules.checked;
 
   return {
     correct:
-      usernameCorrect && mailCorrect && passwordCorrect && passwordCheckCorrect,
-    message: errorMessage,
+      usernameCorrect &&
+      mailCorrect &&
+      passwordCorrect &&
+      passwordCheckCorrect &&
+      mailCorrect &&
+      rulesAcceptance,
+    usernameCorrect: usernameCorrect,
+    mailCorrect: mailCorrect,
+    passwordCorrect: passwordCorrect,
+    passwordCheckCorrect: passwordCheckCorrect,
+    rulesAcceptance: rulesAcceptance,
   };
 }
 
 //CHANGE PASSWORD VISIBILITY
+const passwordShowHides = document.querySelectorAll(".showhide-pass");
+
 function switchPasswordVisibility(passElem, icon) {
-  passElem.type == "text"
+  passElem.type === "text"
     ? (passElem.type = "password")
     : (passElem.type = "text");
   icon.classList.toggle("fa-eye");
   icon.classList.toggle("fa-eye-slash");
 }
+
+passwordShowHides.forEach((elem) => {
+  elem.addEventListener("click", (e) => {
+    let target = e.target;
+    let inputID = "#" + target.dataset.inputcontroll;
+    switchPasswordVisibility(document.querySelector(inputID), target);
+  });
+});

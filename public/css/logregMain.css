@@ -89,7 +89,7 @@ html {
   position: absolute;
   left: 0;
   bottom: 10px;
-  transition: 300ms ease-in-out;
+  transition: 300ms linear;
   cursor: text;
   transform-origin: 0 0;
   pointer-events: none;
@@ -100,8 +100,8 @@ html {
   left: 0;
   width: 0;
   height: 3px;
-  background-color: #00b7ff;
-  transition: 300ms ease;
+  background-color: rgba(50, 156, 255, 0.9843137255);
+  transition: width 300ms ease-in-out;
 }
 .container form .inputBox {
   flex: 1;
@@ -136,10 +136,20 @@ html {
   font-weight: 800;
   color: #0000d7;
 }
+.container form input[type=password].incorrectData,
+.container form input[type=text].incorrectData,
+.container form input[type=email].incorrectData {
+  border-bottom-color: #c90909;
+}
 .container form input[type=password]:focus ~ .underline,
 .container form input[type=text]:focus ~ .underline,
 .container form input[type=email]:focus ~ .underline {
   width: 100%;
+}
+.container form input[type=password]:focus.incorrectData ~ .underline,
+.container form input[type=text]:focus.incorrectData ~ .underline,
+.container form input[type=email]:focus.incorrectData ~ .underline {
+  background-color: #f62e2e;
 }
 .container form .hint {
   background: rgba(0, 0, 0, 0.062745098);
@@ -159,6 +169,7 @@ html {
   padding: 7px;
   padding-left: 10px;
   margin-inline: auto;
+  animation: sildeInAnimation 300ms ease-out;
 }
 .container form .hint p {
   margin-top: 6px;
@@ -177,9 +188,10 @@ html {
   padding-right: 29px;
 }
 .container #messageContaier {
-  display: none;
-  justify-content: center;
+  position: relative;
   margin-bottom: 7px;
+  justify-content: center;
+  width: 100%;
 }
 .container #messageContaier #messageBox {
   border: 1px solid #800606;
@@ -198,6 +210,7 @@ html {
   display: block;
   position: relative;
   box-sizing: content-box;
+  animation: slideInAnimation 300ms ease-out;
 }
 .container #messageContaier #messageBox .title {
   font-size: 18px;
@@ -242,4 +255,18 @@ html {
 .container .formFooter a:visited, .container .formFooter a:link {
   color: #0000d7;
   text-decoration: underline;
+}
+
+@keyframes sildeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-200%);
+  }
+  70% {
+    transform: translateX(7em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

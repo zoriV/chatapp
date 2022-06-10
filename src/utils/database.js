@@ -49,15 +49,18 @@ function getUserByID(id, callback) {
  * @param {string} mail user e-mail
  * @param {string} salt salt for generated password
  * @param {function(result)} callback callback for a funciton
- * @returns boolean
+ * @returns {error,res}
+ * result error codes: 1 - incorrect data, 2 - user exist
  */
 function createUser(username, password, salt, mail, callback) {
-  if (checkUserExist(username)) return callback(null);
+  if (username.length == 1 || password.length == 1 || mail.length == 1)
+    return callback({ error: 1, res: null });
+  if (checkUserExist(username)) return callback({ error: 2, res: null });
   const SQL =
     "INSERT INTO chat_users(username,password,password_salt,mail) VALUES (?,?,?,?)";
   conn.query(SQL, [username, password, salt, mail], (err, res, fields) => {
     if (err) throw err;
-    return callback(res.affectedRows === 1 ? true : false);
+    return callback({ error: 0, res: res.affectedRows === 1 ? true : false });
   });
 }
 
@@ -68,7 +71,7 @@ function checkUserExist(username) {
     "SELECT COUNT(*) AS 'useramount' FROM chat_users WHERE username = ?";
   conn.query(SQL, [username], async (err, res, fields) => {
     if (err) throw err;
-    let userAmount = await res[0].useramount;
+    let userAmount = res[0].useramount;
     return userAmount === 1 ? true : false;
   });
 }

@@ -19,8 +19,11 @@
         <div class="formHeader">
           <h1>rejestracja</h1>
         </div>
-        <div class="messageContaier">
-          <div id="messageBox"></div>
+        <div id="messageContaier" style="display: none">
+          <div id="messageBox">
+            <div class="title">Błąd:</div>
+            <div id="messageBox__message"></div>
+          </div>
         </div>
         <div class="content">
           <div class="line">
@@ -73,7 +76,10 @@
               />
               <label for="password" class="description">hasło</label>
               <label for="password" class="underline"></label>
-              <i id="showHide-pass" class="fa-solid fa-eye showhide-pass"></i>
+              <i
+                data-inputcontroll="password"
+                class="fa-solid fa-eye showhide-pass"
+              ></i>
             </div>
           </div>
           <div class="hint" id="hint-password">
@@ -98,8 +104,8 @@
               >
               <label for="passwordCheck" class="underline"></label>
               <i
-                id="showHide-passCheck"
                 class="fa-solid fa-eye showhide-pass"
+                data-inputcontroll="passwordCheck"
               ></i>
             </div>
           </div>
