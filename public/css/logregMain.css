@@ -16,7 +16,7 @@ html {
 }
 .container form {
   background: #ffffff;
-  border-radius: 15px;
+  border-radius: 1em;
   width: 485px;
   height: auto;
   overflow: hidden;
@@ -89,7 +89,7 @@ html {
   position: absolute;
   left: 0;
   bottom: 10px;
-  transition: 300ms linear;
+  transition: 0.21s linear;
   cursor: text;
   transform-origin: 0 0;
   pointer-events: none;
@@ -100,8 +100,8 @@ html {
   left: 0;
   width: 0;
   height: 3px;
-  background-color: rgba(50, 156, 255, 0.9843137255);
-  transition: width 300ms ease-in-out;
+  background-color: #0288d1;
+  transition: width 0.21s ease-in-out;
 }
 .container form .inputBox {
   flex: 1;
@@ -136,20 +136,25 @@ html {
   font-weight: 800;
   color: #0000d7;
 }
+.container form input[type=password].incorrectData + label.description,
+.container form input[type=text].incorrectData + label.description,
+.container form input[type=email].incorrectData + label.description {
+  color: #dd1111;
+}
 .container form input[type=password].incorrectData,
 .container form input[type=text].incorrectData,
 .container form input[type=email].incorrectData {
-  border-bottom-color: #c90909;
+  border-bottom-color: #dd1111;
 }
 .container form input[type=password]:focus ~ .underline,
 .container form input[type=text]:focus ~ .underline,
 .container form input[type=email]:focus ~ .underline {
   width: 100%;
 }
-.container form input[type=password]:focus.incorrectData ~ .underline,
-.container form input[type=text]:focus.incorrectData ~ .underline,
-.container form input[type=email]:focus.incorrectData ~ .underline {
-  background-color: #f62e2e;
+.container form input[type=password].incorrectData ~ .underline,
+.container form input[type=text].incorrectData ~ .underline,
+.container form input[type=email].incorrectData ~ .underline {
+  background-color: #f36161;
 }
 .container form .hint {
   background: rgba(0, 0, 0, 0.062745098);
@@ -182,7 +187,7 @@ html {
   color: #009d05;
 }
 .container form .hint p.notMet {
-  color: #c90909;
+  color: #dd1111;
 }
 .container .password {
   padding-right: 29px;
@@ -194,7 +199,7 @@ html {
   width: 100%;
 }
 .container #messageContaier #messageBox {
-  border: 1px solid #800606;
+  border: 1px solid #960c0c;
   margin: 10px 0px;
   margin-top: -10px;
   padding: 15px 10px 15px 50px;
@@ -204,8 +209,8 @@ html {
   border-radius: 13px;
   width: 250px;
   text-align: left;
-  color: #c90909;
-  background-color: #f86d6d;
+  color: #dd1111;
+  background-color: #f68c8c;
   background-image: url("/img/errorIcon.png");
   display: block;
   position: relative;
@@ -215,7 +220,7 @@ html {
 .container #messageContaier #messageBox .title {
   font-size: 18px;
   font-weight: 900;
-  color: #c40909;
+  color: #d81111;
 }
 .container .formHeader {
   width: 100%;

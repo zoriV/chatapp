@@ -14,9 +14,47 @@ let currentHint = null,
 hint_incorrectIcon.classList.add("fa-solid", "fa-xmark");
 hint_correctIcon.classList.add("fa-solid", "fa-check");
 
-registerForm.addEventListener("submit", (e) => {
+function checkAllData(data) {
+  const { username, email, password, passwordCheck, rules } = data;
+  let usernameCorrect =
+      !username.match(/[^a-zA-Z0-9\-\_]/) &&
+      username.length >= 3 &&
+      username.length <= 20,
+    mailCorrect = email.length > 0 ? true : false, //TODO - mail validation
+    passwordCorrect =
+      password.match(/[A-B]/) &&
+      password.match(/[1-9]/) &&
+      password.match(/[^a-zA-Z0-9\-\_ ]/) &&
+      password.length >= 9,
+    passwordCheckCorrect = password === passwordCheck && password.length !== 0,
+    rulesAcceptance = rules.checked;
+
+  return {
+    isFill: !(
+      username.length === 0 &&
+      email.length === 0 &&
+      password.length === 0 &&
+      passwordCheck.length === 0
+    ),
+    correct:
+      usernameCorrect &&
+      mailCorrect &&
+      passwordCorrect &&
+      passwordCheckCorrect &&
+      mailCorrect &&
+      rulesAcceptance,
+    usernameCorrect: usernameCorrect,
+    mailCorrect: mailCorrect,
+    passwordCorrect: passwordCorrect,
+    passwordCheckCorrect: passwordCheckCorrect,
+    rulesAcceptance: rulesAcceptance,
+  };
+}
+
+registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const {
+    isFill,
     correct,
     usernameCorrect,
     mailCorrect,
@@ -31,6 +69,36 @@ registerForm.addEventListener("submit", (e) => {
     rules: form_rulesAcceptance,
   });
   if (!correct) {
+    errorHighlightRemove(
+      form_username,
+      form_mail,
+      form_password,
+      form_passwordCheck
+    );
+
+    if (!isFill) {
+      errorHighlight(
+        form_username,
+        form_mail,
+        form_password,
+        form_passwordCheck
+      );
+      showError("Wprowadź dane");
+      return;
+    }
+    if (!usernameCorrect) {
+      errorHighlight(form_username);
+    }
+    if (!mailCorrect) {
+      errorHighlight(form_mail);
+    }
+    if (!passwordCorrect) {
+      errorHighlight(form_password);
+    }
+    if (!passwordCheckCorrect) {
+      errorHighlight(form_passwordCheck);
+    }
+
     if (!usernameCorrect) {
       showError("Niepoprawna nazwa użytkownika");
       return;
@@ -47,8 +115,14 @@ registerForm.addEventListener("submit", (e) => {
       showError("Podane hasła się nie zgadzają");
       return;
     }
+    if (!rulesAcceptance) {
+      showError("Aby założyć konto musisz zaakceptować regulamin");
+      return;
+    }
     return;
   }
+
+  // await fetch("/register", () => {});
 });
 
 function showError(message) {
@@ -57,6 +131,21 @@ function showError(message) {
 
   container.style.display = "flex";
   content.innerText = message;
+}
+function hideError() {
+  const container = registerForm.querySelector("#messageContaier");
+  container.style.display = "none";
+}
+function errorHighlight(...input) {
+  input.forEach((elem) => {
+    elem.classList.add("incorrectData");
+  });
+}
+function errorHighlightRemove(...input) {
+  input.forEach((elem) => {
+    if (elem.classList.contains("incorrectData"))
+      elem.classList.remove("incorrectData");
+  });
 }
 
 Array.from(registerForm.elements).forEach((el) => {
@@ -147,37 +236,6 @@ function showHint(id, values) {
   currentHint = hint;
   genHint(getHintValue(values), hint);
   hint.style.display = "block";
-}
-
-function checkAllData(data) {
-  const { username, email, password, passwordCheck, rules } = data;
-  let usernameCorrect =
-      !username.match(/[^a-zA-Z0-9\-\_]/) &&
-      username.length >= 3 &&
-      username.length <= 20,
-    mailCorrect = true,
-    passwordCorrect =
-      password.match(/[A-B]/) &&
-      password.match(/[1-9]/) &&
-      password.match(/[^a-zA-Z0-9\-\_ ]/) &&
-      password.length >= 9,
-    passwordCheckCorrect = password === passwordCheck,
-    rulesAcceptance = rules.checked;
-
-  return {
-    correct:
-      usernameCorrect &&
-      mailCorrect &&
-      passwordCorrect &&
-      passwordCheckCorrect &&
-      mailCorrect &&
-      rulesAcceptance,
-    usernameCorrect: usernameCorrect,
-    mailCorrect: mailCorrect,
-    passwordCorrect: passwordCorrect,
-    passwordCheckCorrect: passwordCheckCorrect,
-    rulesAcceptance: rulesAcceptance,
-  };
 }
 
 //CHANGE PASSWORD VISIBILITY
