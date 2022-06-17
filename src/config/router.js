@@ -27,6 +27,7 @@ router
     }),
     function (req, res, next) {
       res.redirect("/");
+      console.log(req.body);
     }
   );
 

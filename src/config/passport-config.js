@@ -10,9 +10,10 @@ const customFields = {
 
 function initializePassport(passport) {
   const verifyUser = (username, password, done) => {
-    const user = dbManager.getUserByUsername(username, (res) => {
-      if (res.lenght === 0) return done(null, false);
-      let valid = validPassword(password, res[0].PASSWORD, res[0].SALT);
+    const user = dbManager.getUserByUsername(username, async (res) => {
+      const fetch = res[0];
+      if (res.length === 0) return done(null, false);
+      const match = await bcrypt.compare(password, fetch.PASSWORD);
       let user = {
         ID: res[0].ID,
         username: res[0].USERNAME,
@@ -23,7 +24,7 @@ function initializePassport(passport) {
       else return done(null, false);
     });
   };
-  passport.use(new localStrategy(customFields, verifyUser));
+  passport.use("local", new localStrategy(customFields, verifyUser));
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });

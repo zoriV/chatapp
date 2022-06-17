@@ -23,7 +23,7 @@ function getUserByUsername(username, callback) {
   const SQL = "SELECT * FROM chat_users WHERE username = ?";
   conn.query(SQL, [username], (err, res) => {
     if (err) throw err;
-    return callback(res[0]);
+    return callback(res);
   });
   return callback(null);
 }
